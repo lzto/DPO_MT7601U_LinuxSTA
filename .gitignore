@@ -1,0 +1,11 @@
+tools/bin2h
+*.o
+*.d
+*.o.cmd
+*.ko
+*.ko.cmd
+os/linux/.tmp_versions
+os/linux/Makefile
+os/linux/Module.symvers
+os/linux/modules.order
+os/linux/mt7601Usta.mod.c
