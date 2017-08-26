@@ -62,10 +62,10 @@ USBHST_STATUS USBUploadFWComplete(URBCompleteStatus Status, purbb_t pURB, pregs 
 static NDIS_STATUS USBLoadIVB(RTMP_ADAPTER *pAd)
 {
 	NDIS_STATUS Status = NDIS_STATUS_SUCCESS;
-	UINT32 i;
-	USHORT Value;
-	USHORT Index;
-	USHORT Temp;
+	//UINT32 i;
+	//USHORT Value;
+	//USHORT Index;
+	//USHORT Temp;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 
 	Status = RTUSB_VendorRequest(pAd,
@@ -101,8 +101,8 @@ NDIS_STATUS USBLoadFirmwareToAndes(RTMP_ADAPTER *pAd)
 	USHORT Value;
 	INT Ret;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
-	USB_DMA_CFG_STRUC UsbCfg;
-	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
+	//USB_DMA_CFG_STRUC UsbCfg;
+	//struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 	//struct completion SentToMCUDone;
 	VOID *SentToMCUDone;
 	UINT32 ILMLen, DLMLen;
@@ -588,7 +588,7 @@ VOID MCUCtrlExit(PRTMP_ADAPTER pAd)
 {
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
 	struct CMD_RSP_EVENT *CmdRspEvent, *CmdRspEventTmp;
-	INT32 Ret;
+	//INT32 Ret;
 	unsigned long IrqFlags;
 
 	RtmpOsMsDelay(30);
@@ -631,7 +631,7 @@ BOOLEAN IsInBandCmdProcessing(PRTMP_ADAPTER pAd)
 UCHAR GetCmdRspNum(PRTMP_ADAPTER pAd)
 {
 	struct MCU_CTRL *MCtrl = &pAd->MCUCtrl;
-	unsigned long IrqFlags;
+	//unsigned long IrqFlags;
 	UCHAR Num = 0;
 	Num = DlListLen(&MCtrl->CmdRspEventList);
 
@@ -2068,7 +2068,8 @@ INT AndesLedOP(
 	struct CMD_UNIT CmdUnit;
 	CHAR *Pos, *pBuf;
 	UINT32 VarLen;
-	UINT32 Value, arg0, arg1;
+	//UINT32 Value;
+    UINT32 arg0, arg1;
 	INT32 Ret;
 #ifdef LED_CONTROL_SUPPORT
 	LED_NMAC_CMD LEC_CmdUnit;

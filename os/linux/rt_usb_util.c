@@ -117,7 +117,7 @@ int rausb_autopm_put_interface (
 	IN	VOID			*intfsrc)
 {
 
-	INT	 pm_usage_cnt;
+	//INT	 pm_usage_cnt;
 	struct usb_interface	*intf =(struct usb_interface *)intfsrc;
 
 
@@ -148,12 +148,11 @@ int rausb_autopm_get_interface (
 	IN	VOID			*intfsrc)
 {
 
-	INT	 pm_usage_cnt;
+	//INT	 pm_usage_cnt;
 	struct usb_interface	*intf =(struct usb_interface *)intfsrc;
 
 
-	usb_autopm_get_interface(intf);
-
+	return usb_autopm_get_interface(intf);
 }
 
 EXPORT_SYMBOL(rausb_autopm_get_interface);

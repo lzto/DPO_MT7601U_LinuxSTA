@@ -1101,7 +1101,9 @@ VOID PeerAssocRspAction(
 						    &HtCapability,
 						    HtCapabilityLen, &AddHtInfo,
 						    AddHtInfoLen,
-							ie_list,
+#ifdef DOT11_VHT_AC
+                            ie_list,
+#endif
 						    CapabilityInfo);
 
 				RTMPSetSupportMCS(pAd,
@@ -1229,7 +1231,9 @@ VOID PeerReassocRspAction(
 						    &HtCapability,
 						    HtCapabilityLen, &AddHtInfo,
 						    AddHtInfoLen,
+#ifdef DOT11_VHT_AC
 							ie_list,
+#endif
 						    CapabilityInfo);
 
 				RTMPSetSupportMCS(pAd,
@@ -1690,7 +1694,9 @@ BOOLEAN StaAddMacTableEntry(
 	IN UCHAR HtCapabilityLen,
 	IN ADD_HT_INFO_IE *pAddHtInfo,
 	IN UCHAR AddHtInfoLen,
+#ifdef DOT11_VHT_AC
 	IN IE_LISTS *ie_list,
+#endif
 	IN USHORT CapabilityInfo)
 {
 	UCHAR MaxSupportedRate = RATE_11;

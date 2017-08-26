@@ -885,7 +885,7 @@ VOID MT7601_INIT_CAL(RTMP_ADAPTER *pAd)
 {
 	UCHAR RfValue;
 	UINT32 Mac_R1004;
-	UCHAR Temperature;
+	//UCHAR Temperature;
 	
 	DBGPRINT(RT_DEBUG_TRACE, ("==>%s\n", __FUNCTION__));
 
@@ -1003,7 +1003,7 @@ Note:
 static VOID NICInitMT7601RFRegisters(RTMP_ADAPTER *pAd)
 {
 
-	UINT32 IdReg;
+	//UINT32 IdReg;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
 
@@ -1041,7 +1041,7 @@ Note:
 */
 static VOID NICInitMT7601MacRegisters(RTMP_ADAPTER *pAd)
 {
-	UINT32 IdReg;
+	//UINT32 IdReg;
 	UINT32 MacReg = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
@@ -1083,7 +1083,7 @@ Note:
 static VOID NICInitMT7601BbpRegisters(
 	IN	PRTMP_ADAPTER pAd)
 {
-	INT IdReg;
+	//INT IdReg;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("%s\n", __FUNCTION__));
 
@@ -1269,12 +1269,16 @@ static VOID MT7601_ChipSwitchChannel(
 	UCHAR	index;
 	UCHAR RFValue = 0;
 	UINT32 Value = 0;
-	INT IdReg;
+	//INT IdReg;
 	UINT32 ret;
 #ifdef SINGLE_SKU_V2
 	CHAR SkuBasePwr;
 	CHAR ChannelPwrAdj;
 #endif /* SINGLE_SKU_V2 */
+
+    UINT32	value;
+    CHAR	CCK1MPwr, CCK11MPwr;
+
 
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	
@@ -1432,15 +1436,12 @@ static VOID MT7601_ChipSwitchChannel(
 	rlt_rf_read(pAd, RF_BANK5, RF_R07, &RFValue);
 	pAd->CommonCfg.MO_Cfg.Stored_RF_B5_R7 = RFValue;
 #endif /* MICROWAVE_OVEN_SUPPORT */
-
 	/* CCK CH14 OBW */
 	if ( (pAd->CommonCfg.BBPCurrentBW == BW_20) && ( Channel == 14 ) )
 	{
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R4, 0x60);
 		RTMP_BBP_IO_WRITE8_BY_REG_ID(pAd, BBP_R178, 0x0);
 		
-		UINT32	value;
-		CHAR	CCK1MPwr, CCK11MPwr;
 		value = pAd->TxCCKPwrCfg;
 		CCK1MPwr = value & 0x3F;
 		CCK1MPwr -= 2;
@@ -1494,7 +1495,9 @@ NTSTATUS MT7601DisableTxRx(
 	UINT32 MaxRetry;
 
 	if (!IS_MT7601(pAd))
-		return;
+    {
+		return STATUS_UNSUCCESSFUL;
+    }
 
 	DBGPRINT(RT_DEBUG_TRACE, ("----> %s\n", __FUNCTION__));
 
@@ -1722,7 +1725,8 @@ NTSTATUS MT7601DisableTxRx(
 #ifdef RTMP_USB_SUPPORT
 VOID MT7601UsbAsicRadioOff(RTMP_ADAPTER *pAd, UCHAR Stage)
 {
-	UINT32 Value, ret;
+	//UINT32 Value;
+    UINT32 ret;
 
 
 	DBGPRINT(RT_DEBUG_TRACE, ("--> %s\n", __FUNCTION__));
@@ -1786,8 +1790,8 @@ VOID MT7601UsbAsicRadioOn(RTMP_ADAPTER *pAd, UCHAR Stage)
 {
 	UINT32 MACValue = 0;
 	UINT32 rx_filter_flag;
-	WPDMA_GLO_CFG_STRUC GloCfg;
-	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
+	//WPDMA_GLO_CFG_STRUC GloCfg;
+	//RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 	UCHAR RFValue = 0;
 
 	DBGPRINT(RT_DEBUG_TRACE, ("==> %s\n", __FUNCTION__));
@@ -1902,7 +1906,7 @@ INT MT7601_ReadChannelPwr(RTMP_ADAPTER *pAd)
 	CHAR tx_pwr1, tx_pwr2;
 	CHAR max_tx1_pwr;
 	UINT16 TargetPwr = 0;
-	BOOLEAN bUseDefault = TRUE;
+	//BOOLEAN bUseDefault = TRUE;
 #ifdef RTMP_INTERNAL_TX_ALC
 	EEPROM_NIC_CONFIG2_STRUC NicConfig2;
 #endif /* RTMP_INTERNAL_TX_ALC */
@@ -2279,7 +2283,7 @@ VOID MT7601AsicTemperatureCompensation(
 	IN BOOLEAN					bPowerOn)
 {
 	INT32	CurrentTemper;
-	INT IdReg;
+	//INT IdReg;
 	UCHAR	RfReg;
 	RTMP_CHIP_CAP *pChipCap = &pAd->chipCap;
 	INT32 high_temp_cr_threshold, low_temp_cr_threshold;
@@ -2474,8 +2478,8 @@ INT16 lin2dBd(UINT16 linearValue)
 
 VOID MT7601_EnableTSSI(IN 		PRTMP_ADAPTER 		pAd)
 {
-	UCHAR RFReg, BBPReg;
-	UINT32 ret;
+	//UCHAR RFReg, BBPReg;
+	//UINT32 ret;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 		AndesFunSetOP(pAd, 5, pTxALCData->TSSI_USE_HVGA);
@@ -2608,7 +2612,7 @@ VOID MT7601_InitDesiredTSSITable(
 	IN PRTMP_ADAPTER			pAd)
 {
 	UINT32 Value = 0;
-	UINT16 index, offset;
+	//UINT16 index, offset;
 	INT32 init_offset;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
@@ -2672,14 +2676,15 @@ BOOLEAN MT7601_GetTssiCompensationParam(
 	OUT 	PCHAR 				TssiLinear1, 
 	OUT 	PINT32 				TargetPower)
 {
-	UCHAR RFReg, BBPReg;
+	//UCHAR RFReg;
+    UCHAR BBPReg;
 	UCHAR PacketType;
 	UCHAR BbpR47;
 	UCHAR BBPR4, BBPR178;
 	UCHAR TxRate;
 	INT32 Power;
-	UINT count;
-	UINT32 ret;
+	//UINT count;
+	//UINT32 ret;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 	if ( pTxALCData->TssiTriggered == 0 )
@@ -2946,7 +2951,7 @@ VOID MT7601_AsicTxAlcGetAutoAgcOffset(
 	CHAR tssi_offset;
 	INT16 tssi_db, tssi_m_dc;
 	UINT32 value;
-	UCHAR BBPReg;
+	//UCHAR BBPReg;
 	MT7601_TX_ALC_DATA *pTxALCData = &pAd->chipCap.TxALCData;
 
 #ifdef MT7601FPGA
@@ -3396,7 +3401,7 @@ VOID MT7601_Init(RTMP_ADAPTER *pAd)
 	pChipOps->SetRxAnt = MT7601SetRxAnt;
 
 
-	pChipOps->DisableTxRx = MT7601DisableTxRx;
+	pChipOps->DisableTxRx = (void*)MT7601DisableTxRx;
 
 #ifdef RTMP_USB_SUPPORT
 	pChipOps->AsicRadioOn = MT7601UsbAsicRadioOn;

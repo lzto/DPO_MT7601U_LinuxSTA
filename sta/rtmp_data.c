@@ -520,7 +520,7 @@ if (0 /*!(pRxInfo->Mcast || pRxInfo->Bcast)*/){
 			    So, the EAP Request is dropped.
 			    The patch lookup pEntry from MacTable.
 			*/
-			pEntry = MacTableLookup(pAd, &pHeader->Addr2);
+			pEntry = MacTableLookup(pAd, pHeader->Addr2);
 			if ( pEntry == NULL )
 			{
 				RELEASE_NDIS_PACKET(pAd, pRxPacket,

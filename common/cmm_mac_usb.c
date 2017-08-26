@@ -385,7 +385,7 @@ NDIS_STATUS	NICInitTransmit(
 {
 	UCHAR			i, acidx;
 	NDIS_STATUS     Status = NDIS_STATUS_SUCCESS;
-	PTX_CONTEXT		pNullContext   = &(pAd->NullContext[0]);
+	PTX_CONTEXT		pNullContext   = &pAd->NullContext[0];
 	PTX_CONTEXT		pPsPollContext = &(pAd->PsPollContext);
 	PTX_CONTEXT		pMLMEContext = NULL;
 	PVOID			RingBaseVa;
@@ -559,7 +559,7 @@ NDIS_STATUS	RTMPAllocTxRxRingMemory(
 	IN	PRTMP_ADAPTER	pAd)
 {	
 	NDIS_STATUS Status = NDIS_STATUS_FAILURE;
-	PTX_CONTEXT pNullContext   = &(pAd->NullContext);
+	PTX_CONTEXT pNullContext   = &pAd->NullContext[0];
 	PTX_CONTEXT pPsPollContext = &(pAd->PsPollContext);
 	PCMD_RSP_CONTEXT pCmdRspEventContext = &(pAd->CmdRspEventContext);
 	INT i, acidx;
@@ -1367,8 +1367,8 @@ Note:
 VOID RT28XXDMAEnable(
 	IN RTMP_ADAPTER *pAd)
 {
-	WPDMA_GLO_CFG_STRUC GloCfg;
-	USB_DMA_CFG_STRUC	UsbCfg;
+	//WPDMA_GLO_CFG_STRUC GloCfg;
+	//USB_DMA_CFG_STRUC	UsbCfg;
 	
 	
 	RTMP_IO_WRITE32(pAd, MAC_SYS_CTRL, 0x4);
@@ -1928,7 +1928,7 @@ VOID RT28xxUsbAsicRadioOn(RTMP_ADAPTER *pAd)
 	BOOLEAN brc;
 	UINT RetryRound = 0;
 	UINT32 rx_filter_flag;
-	WPDMA_GLO_CFG_STRUC GloCfg;
+	//WPDMA_GLO_CFG_STRUC GloCfg;
 	RTMP_CHIP_OP *pChipOps = &pAd->chipOps;
 
 

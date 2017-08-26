@@ -276,7 +276,7 @@ static BOOLEAN wmode_valid(RTMP_ADAPTER *pAd, enum WIFI_MODE wmode)
 static BOOLEAN wmode_valid_and_correct(RTMP_ADAPTER *pAd, UCHAR* wmode)
 {
 	BOOLEAN ret = TRUE;
-	UCHAR mode = *wmode;
+	//UCHAR mode = *wmode;
 
 	if (WMODE_CAP_5G(*wmode) && (!PHY_CAP_5G(pAd->chipCap.phy_caps)))
 	{

@@ -328,7 +328,7 @@ void announce_802_3_packet(
 	IN PNDIS_PACKET pPacket,
 	IN UCHAR OpMode)
 {
-	RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
+	//RTMP_ADAPTER *pAd = (RTMP_ADAPTER *)pAdSrc;
 	PNDIS_PACKET pRxPkt = pPacket;
 
 	ASSERT(pPacket);
@@ -396,7 +396,7 @@ void STA_MonPktSend(
 
     if (pRxBlk->DataSize + sizeof(wlan_ng_prism2_header) > RX_BUFFER_AGGRESIZE)
     {
-        DBGPRINT(RT_DEBUG_ERROR, ("%s : Size is too large! (%d)\n", __FUNCTION__, pRxBlk->DataSize + sizeof(wlan_ng_prism2_header)));
+        DBGPRINT(RT_DEBUG_ERROR, ("%s : Size is too large! (%lu)\n", __FUNCTION__, pRxBlk->DataSize + sizeof(wlan_ng_prism2_header)));
 		goto err_free_sk_buff;
     }
 

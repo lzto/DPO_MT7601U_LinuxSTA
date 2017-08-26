@@ -5206,7 +5206,8 @@ VOID RTMPIoctlRF(
 {
 	PSTRING				this_char;
 	PSTRING				value;
-	UCHAR				regRF = 0, rf_bank = 0;
+	UCHAR				regRF = 0;
+    //UCHAR               rf_bank = 0;
 	PSTRING				mpool, msg;
 	PSTRING				arg;
 	PSTRING				ptr;
@@ -5303,7 +5304,7 @@ VOID RTMPIoctlRF(
 					if ( (rfId <= maxRFIdx) && (bank_Id <= MAC_RF_BANK) )
 					{
 						rlt_rf_write(pAdapter, bank_Id, rfId, rfValue);
-						sprintf(msg+strlen(msg), "BANK%d_R%02d:%02X  ", bank_Id, rfId, rfValue);
+						sprintf(msg+strlen(msg), "BANK%d_R%02d:%lx  ", bank_Id, rfId, rfValue);
 					}
 					else
 					{
@@ -5763,7 +5764,8 @@ VOID RTMPIoctlShow(
             wrq->u.data.length = strlen(extra) + 1; /* 1: size of '\0' */
             break;
         case SHOW_DRVIER_VERION:
-            snprintf(extra, size, "Driver version-%s, %s %s\n", STA_DRIVER_VERSION, __DATE__, __TIME__ );
+            //snprintf(extra, size, "Driver version-%s, %s %s\n", STA_DRIVER_VERSION, __DATE__, __TIME__ );
+            snprintf(extra, size, "Driver version-%s\n", STA_DRIVER_VERSION);
             wrq->u.data.length = strlen(extra) + 1; /* 1: size of '\0' */
             break;
 #ifdef DOT11_N_SUPPORT
@@ -7607,7 +7609,7 @@ RtmpIoctl_rt_ioctl_siwgenie(
 				pAd->StaCfg.WpaAssocIeLen = length;
 				NdisMoveMemory(pAd->StaCfg.pWpaAssocIe, pData, pAd->StaCfg.WpaAssocIeLen);
 				pAd->StaCfg.bRSN_IE_FromWpaSupplicant = TRUE;
-				eid_ptr = pAd->StaCfg.pWpaAssocIe;
+				eid_ptr = (PEID_STRUCT)(pAd->StaCfg.pWpaAssocIe);
 				while (((UCHAR *)eid_ptr + eid_ptr->Len + 1) < ((UCHAR *)pAd->StaCfg.pWpaAssocIe + pAd->StaCfg.WpaAssocIeLen))
 				{
 					if ( eid_ptr->Eid == IE_WPA )

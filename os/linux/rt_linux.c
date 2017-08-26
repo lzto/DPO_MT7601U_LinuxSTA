@@ -176,7 +176,7 @@ VOID RTMPusecDelay(ULONG usec)
 /* Unify all delay routine by using udelay */
 VOID RtmpOsUsDelay(ULONG value)
 {
-	ULONG i;
+	//ULONG i;
 
 	udelay(value);
 }
@@ -1118,8 +1118,8 @@ static inline void __RtmpOSFSInfoChange(OS_FS_INFO * pOSFSInfo, BOOLEAN bSet)
 		pOSFSInfo->fsgid = current->fsgid;
 		current->fsuid = current->fsgid = 0;
 #else
-		pOSFSInfo->fsuid = current_fsuid();
-		pOSFSInfo->fsgid = current_fsgid();
+		pOSFSInfo->fsuid = current_fsuid().val;
+		pOSFSInfo->fsgid = current_fsgid().val;
 #endif
 		pOSFSInfo->fs = get_fs();
 		set_fs(KERNEL_DS);
@@ -2028,13 +2028,13 @@ VOID RtmpDrvAllE2PPrint(
 
 VOID RtmpDrvAllRFPrint(
 	IN VOID *pReserved,
-	IN UINT32 *pBuf,
+	IN UCHAR *pBuf,
 	IN UINT32 BufLen)
 {
 	struct file *file_w;
 	PSTRING fileName = "RFDump.txt";
 	mm_segment_t orig_fs;
-	UINT32 macAddr = 0, macValue = 0;
+	//UINT32 macAddr = 0, macValue = 0;
 	
 	orig_fs = get_fs();
 	set_fs(KERNEL_DS);
@@ -2170,7 +2170,7 @@ int RtmpOSIRQRelease(
 	IN PPCI_DEV pci_dev,
 	IN BOOLEAN *pHaveMsi)
 {
-	struct net_device *net_dev = (struct net_device *)pNetDev;
+	//struct net_device *net_dev = (struct net_device *)pNetDev;
 
 
 

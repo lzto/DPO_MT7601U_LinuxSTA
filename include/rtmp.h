@@ -7897,7 +7897,9 @@ BOOLEAN StaAddMacTableEntry(
 	IN  UCHAR				HtCapabilityLen,
 	IN  ADD_HT_INFO_IE		*pAddHtInfo,
 	IN  UCHAR				AddHtInfoLen,
-	IN IE_LISTS *ie_list,
+#ifdef DOT11_VHT_AC
+	IN  IE_LISTS            *ie_list,
+#endif
 	IN  USHORT        		CapabilityInfo);
 
 
