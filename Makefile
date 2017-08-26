@@ -28,6 +28,7 @@ RTMP_SRC_DIR = $(RT28xx_DIR)/RT$(MODULE)
 
 #PLATFORM: Target platform
 PLATFORM = PC
+#PLATFORM = PINE64
 #PLATFORM = 5VT
 #PLATFORM = IKANOS_V160
 #PLATFORM = IKANOS_V180
@@ -104,6 +105,12 @@ endif
 ifeq ($(PLATFORM),5VT)
 LINUX_SRC = /home/ralink-2860-sdk-5vt-distribution/linux-2.6.17
 CROSS_COMPILE = /opt/crosstool/uClibc_v5te_le_gcc_4_1_1/bin/arm-linux-
+endif
+
+ifeq ($(PLATFORM),PINE64)
+LINUX_SRC = /home/lzto/devices/linux-pine64
+CROSS_COMPILE = /opt/toolchain/gcc-linaro-5.4.1-2017.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
+ARCH=arm64
 endif
 
 ifeq ($(PLATFORM),UBICOM_IPX8)
@@ -202,6 +209,7 @@ LINUX_SRC = /lib/modules/$(shell uname -r)/build
 #LINUX_SRC = /usr/src/linux-2.4
 LINUX_SRC_MODULE = /lib/modules/$(shell uname -r)/kernel/drivers/net/wireless/
 CROSS_COMPILE = 
+ARCH=$(shell uname -m)
 endif
 
 ifeq ($(PLATFORM),INTELP6)
@@ -258,7 +266,7 @@ ifeq ($(PLATFORM),ST)
 LINUX_SRC = /opt/STM/STLinux-2.2/devkit/sources/kernel/linux0039
 CROSS_COMPILE = /opt/STM/STLinux-2.2/devkit/sh4/bin/sh4-linux-
 ARCH := sh
-export ARCH
+export ARCH=$(ARCH)
 endif
 
 ifeq ($(PLATFORM),CAVM_OCTEON)
@@ -398,7 +406,7 @@ else
 ifeq ($(PLATFORM),FREESCALE8377)
 	$(MAKE) ARCH=powerpc CROSS_COMPILE=$(CROSS_COMPILE) -C  $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 else
-	$(MAKE) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
+	$(MAKE) ARCH=$(ARCH) -C $(LINUX_SRC) SUBDIRS=$(RT28xx_DIR)/os/linux modules
 endif
 endif
 
